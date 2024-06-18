@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 
 const users = [
     { name: "Michael", age: 24, email: "Michael@email.com" },
@@ -9,6 +9,13 @@ const users = [
 function Users() {
 
     const [userName, setUserName] = useState(users[1].name)
+    const [windowSize, setWindowSize] = useState(window.innerWidth)
+
+    useEffect(() => {
+      window.addEventListener('resize', () => {
+        setWindowSize(prev => prev = window.innerWidth)
+      })
+    }, [windowSize])
 
     const updateUser = () => {
         let newNum = Math.floor(Math.random() * 3)
@@ -18,6 +25,8 @@ function Users() {
 
     return (
         <div>
+          <p>Window Size</p>
+          <p>{windowSize}</p>
           <p>{userName}</p>
           <button onClick={updateUser}>Click Me!</button>
         </div>
